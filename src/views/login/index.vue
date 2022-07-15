@@ -13,7 +13,7 @@
         v-model="mobile"
         name="mobile"
         placeholder="请输入账号"
-        :rules="[{ required: true, message: '请填写用户名' }]"
+        :rules="userRuler"
         class="input"
       />
       <van-field
@@ -21,7 +21,7 @@
         type="password"
         name="code"
         placeholder="请输入密码"
-        :rules="[{ required: true, message: '请填写密码' }]"
+        :rules="pwdRuler"
       />
       <div style="margin: 16px">
         <van-button block type="info" native-type="submit">提交</van-button>
@@ -31,22 +31,41 @@
   </div>
 </template>
 <script>
-import { Toast } from 'vant'
 import { login } from '@/api/user.js'
+import { userRuler, pwdRuler } from './ruler'
 
 export default {
   data () {
     return {
       mobile: '',
-      code: ''
+      code: '',
+      userRuler,
+      pwdRuler
     }
   },
   methods: {
     onClickLeft () {
-      Toast('返回')
+      this.$router.back()
     },
-    onSubmit () {
-      login(this.mobile, this.code)
+    async onSubmit () {
+      this.$toast.loading({
+        message: '加载中...',
+        forbidClick: true
+      })
+      try {
+        const res = await login(this.mobile, this.code)
+        const status = res.data.status
+        if (status === 200) {
+          // 说明登录成功
+          this.$toast.success(res.data.description)
+          this.$store.commit('setUser', res.data.body)
+          this.$router.push('/profil')
+        }
+        this.$toast.success(res.data.description)
+      } catch (error) {
+        this.$toast.fail('登录失败')
+        console.log(error)
+      }
     }
   }
 }
