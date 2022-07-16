@@ -15,14 +15,14 @@
         placeholder="请输入账号"
         :rules="userRuler"
         class="input"
-      />
+      ></van-field>
       <van-field
         v-model="code"
         type="password"
         name="code"
         placeholder="请输入密码"
         :rules="pwdRuler"
-      />
+      ></van-field>
       <div style="margin: 16px">
         <van-button block type="info" native-type="submit">提交</van-button>
       </div>
@@ -54,12 +54,13 @@ export default {
       })
       try {
         const res = await login(this.mobile, this.code)
+        console.log(res)
         const status = res.data.status
         if (status === 200) {
           // 说明登录成功
           this.$toast.success(res.data.description)
           this.$store.commit('setUser', res.data.body)
-          this.$router.push('/profil')
+          this.$router.push('/profile')
         }
         this.$toast.success(res.data.description)
       } catch (error) {
@@ -89,7 +90,7 @@ export default {
 .text {
   text-align: center;
   margin-top: 50px;
-  font-size: 25px;
+  font-size: 15px;
   color: #666;
 }
 </style>
