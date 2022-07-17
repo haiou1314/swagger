@@ -1,4 +1,5 @@
-/<template>
+/
+<template>
   <div>
     <!-- header -->
 
@@ -6,7 +7,13 @@
       <img :src="require('@/assets/img/avatar2.png')" alt="" class="img2" />
       <div class="box"></div>
       <div class="my_bg mybg">
-        <van-image class="img" width="66" round height="66"  :src="require(`@/assets/img/avatar.png`)"/>
+        <van-image
+          class="img"
+          width="66"
+          round
+          height="66"
+          :src="require(`@/assets/img/avatar.png`)"
+        />
         <div class="tex">
           {{ !!$store.state.user.token ? userInfo.nickname : '游客' }}
         </div>
@@ -79,12 +86,15 @@ export default {
         })
     },
     async userinfo () {
-      if (this.isLogin) {
-        const {
-          data: { body }
-        } = await userinfo()
-        this.userInfo = body
-        console.log(body)
+      try {
+        if (this.isLogin) {
+          const {
+            data: { body }
+          } = await userinfo()
+          this.userInfo = body
+        }
+      } catch (error) {
+        this.$toast.fail('请刷新重试')
       }
     }
   },
