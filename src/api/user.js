@@ -20,3 +20,25 @@ export const userinfo = () => {
     }
   })
 }
+
+// 我的收藏
+export const userCollection = () => {
+  return request({
+    method: 'GET',
+    url: '/user/favorites',
+    headers: {
+      authorization: store.state.user.token
+    }
+  })
+}
+
+// 我的出租
+export const userlease = () => {
+  return request({
+    method: 'GET',
+    url: '/user/houses',
+    headers: {
+      authorization: store.state.user.token
+    }
+  })
+}

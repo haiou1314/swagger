@@ -74,7 +74,7 @@
             <template #text>
               <div class="text">
                 {{ item.title }}
-                <br>
+                <br />
                 {{ item.desc }}
               </div>
             </template>
@@ -115,7 +115,6 @@ export default {
           data: { body }
         } = await homegroups()
         this.groups = body
-        console.log(body)
       } catch (error) {
         this.$toast.fail('请刷新一下')
       }
@@ -212,7 +211,7 @@ export default {
   }
   .text {
     font-size: 14px;
-   margin-left: 10px;
+    margin-left: 10px;
   }
 }
 </style>

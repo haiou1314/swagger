@@ -1,8 +1,7 @@
-/
+`/
 <template>
   <div>
-    <!-- header -->
-
+    <!-- header1 -->
     <div class="header" v-if="isLogin">
       <img :src="require('@/assets/img/avatar2.png')" alt="" class="img2" />
       <div class="box"></div>
@@ -23,6 +22,7 @@
       </div>
     </div>
 
+    <!-- header2 -->
     <div class="header" v-else>
       <img src="../../assets/img/bg.png" alt="" />
       <div class="my_bg">
@@ -40,15 +40,16 @@
 
     <!-- section -->
     <div class="section">
-      <van-grid :column-num="3" :border="false" clickable>
-        <van-grid-item icon-size="40px" icon="star-o" text="我的收藏" />
-        <van-grid-item icon="wap-home-o" text="我的出租" />
+      <van-grid :column-num="3" :border="false" clickable router>
+        <van-grid-item icon="star-o" text="我的收藏" to="/detailsList" />
+        <van-grid-item icon="wap-home-o" text="我的出租" to="/userLease" />
         <van-grid-item icon="underway-o" text="看房记录" />
         <van-grid-item icon="ecard-pay" text="成为房主" />
         <van-grid-item icon="contact" text="个人资料" />
         <van-grid-item icon="service-o" text="联系我们" />
       </van-grid>
     </div>
+
     <!-- footer -->
     <div class="footer">
       <img :src="require('@/assets/img/join.png')" alt="" />
